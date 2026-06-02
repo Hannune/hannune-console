@@ -1,0 +1,12 @@
+# Dev container for the Hannune console (Next.js). Host node is never used.
+FROM node:20-slim
+
+WORKDIR /app
+
+# deps are installed against the mounted source at runtime (see docker-compose).
+# Keeping the image lean; node_modules lives on a named volume.
+ENV NEXT_TELEMETRY_DISABLED=1
+
+EXPOSE 3000
+
+CMD ["npm", "run", "dev", "--", "--hostname", "0.0.0.0"]
