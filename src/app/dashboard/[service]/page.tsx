@@ -80,7 +80,7 @@ export default async function ServiceDashboard({
         <div>
           <Link
             href="/dashboard"
-            className="text-sm text-gray-500 hover:text-gray-900"
+            className="text-sm text-gray-500 hover:text-olive"
           >
             ← Dashboard
           </Link>
@@ -88,13 +88,13 @@ export default async function ServiceDashboard({
             {svc.name}
           </h1>
         </div>
-        <span className="rounded-full border border-gray-300 px-3 py-1 text-xs font-medium uppercase tracking-wide text-gray-600">
+        <span className="rounded-full border border-olive/25 px-3 py-1 text-xs font-medium uppercase tracking-wide text-gray-600">
           {tier.name} plan
         </span>
       </div>
 
       {/* usage */}
-      <section className="mt-8 rounded-lg border border-gray-200 p-5">
+      <section className="mt-8 rounded-lg border border-olive/15 p-5">
         <div className="flex items-baseline justify-between text-sm">
           <span className="font-medium">Usage this month ({month})</span>
           <span className="text-gray-500">
@@ -103,7 +103,7 @@ export default async function ServiceDashboard({
         </div>
         <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-gray-100">
           <div
-            className="h-full rounded-full bg-gray-900"
+            className="h-full rounded-full bg-olive"
             style={{ width: `${pct}%` }}
           />
         </div>

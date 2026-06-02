@@ -65,7 +65,7 @@ export default function PlanSelector({
           <button
             onClick={manage}
             disabled={pending}
-            className="text-sm text-gray-600 underline hover:text-gray-900 disabled:opacity-50"
+            className="text-sm text-gray-600 underline hover:text-olive disabled:opacity-50"
           >
             Manage subscription
           </button>
@@ -82,7 +82,7 @@ export default function PlanSelector({
             <div
               key={t.id}
               className={`rounded-lg border p-4 ${
-                isCurrent ? "border-gray-900" : "border-gray-200"
+                isCurrent ? "border-olive" : "border-olive/15"
               }`}
             >
               <div className="font-medium">{t.name}</div>
@@ -107,7 +107,7 @@ export default function PlanSelector({
                     href={`mailto:${SALES_EMAIL}?subject=${encodeURIComponent(
                       `${service} Enterprise inquiry`,
                     )}`}
-                    className="inline-block w-full rounded-md border border-gray-900 px-3 py-1.5 text-center text-sm font-medium text-gray-900 hover:bg-gray-50"
+                    className="inline-block w-full rounded-md border border-olive px-3 py-1.5 text-center text-sm font-medium text-olive hover:bg-olive/5"
                   >
                     Contact sales
                   </a>
@@ -123,7 +123,7 @@ export default function PlanSelector({
                   <button
                     onClick={() => upgrade(t.id)}
                     disabled={pending}
-                    className="w-full rounded-md bg-gray-900 px-3 py-1.5 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50"
+                    className="w-full rounded-md bg-olive px-3 py-1.5 text-sm font-medium text-cream hover:bg-olive-hover disabled:opacity-50"
                   >
                     {busyTier === t.id ? "Redirecting…" : "Choose"}
                   </button>

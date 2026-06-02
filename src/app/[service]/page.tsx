@@ -33,13 +33,13 @@ export default async function ServicePage({
         <div className="mt-6 flex gap-3">
           <Link
             href={`/login?next=/dashboard/${svc.slug}`}
-            className="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-700"
+            className="rounded-lg bg-olive px-5 py-2.5 text-sm font-medium text-cream hover:bg-olive-hover"
           >
             Get API key
           </Link>
           <Link
             href={`/${svc.slug}/docs`}
-            className="rounded-lg border border-gray-300 px-5 py-2.5 text-sm font-medium text-gray-700 hover:border-gray-400"
+            className="rounded-lg border border-olive/25 px-5 py-2.5 text-sm font-medium text-gray-700 hover:border-olive/40"
           >
             Docs
           </Link>
@@ -53,7 +53,7 @@ export default async function ServicePage({
           {svc.tiers.map((t) => (
             <div
               key={t.id}
-              className="flex flex-col rounded-xl border border-gray-200 p-6"
+              className="flex flex-col rounded-xl border border-olive/15 p-6"
             >
               <h3 className="text-base font-medium">{t.name}</h3>
               <p className="mt-2 text-3xl font-semibold">
@@ -78,14 +78,14 @@ export default async function ServicePage({
                   href={`mailto:contact@hannune.ai?subject=${encodeURIComponent(
                     `${svc.slug} Enterprise inquiry`,
                   )}`}
-                  className="mt-6 rounded-lg border border-gray-900 px-4 py-2 text-center text-sm font-medium hover:bg-gray-50"
+                  className="mt-6 rounded-lg border border-olive px-4 py-2 text-center text-sm font-medium hover:bg-olive/5"
                 >
                   Contact sales
                 </a>
               ) : (
                 <Link
                   href={`/login?next=/dashboard/${svc.slug}`}
-                  className="mt-6 rounded-lg border border-gray-300 px-4 py-2 text-center text-sm font-medium hover:border-gray-400"
+                  className="mt-6 rounded-lg border border-olive/25 px-4 py-2 text-center text-sm font-medium hover:border-olive/40"
                 >
                   {t.priceUsd === 0 ? "Start free" : "Choose"}
                 </Link>

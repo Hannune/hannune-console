@@ -30,7 +30,7 @@ export default async function DashboardPage() {
         <form action="/auth/signout" method="post">
           <button
             type="submit"
-            className="rounded-md border border-gray-300 px-3 py-1.5 text-sm hover:bg-gray-50"
+            className="rounded-md border border-olive/25 px-3 py-1.5 text-sm hover:bg-olive/5"
           >
             Sign out
           </button>
@@ -50,7 +50,7 @@ export default async function DashboardPage() {
           <Link
             key={s.slug}
             href={`/dashboard/${s.slug}`}
-            className="rounded-lg border border-gray-200 p-5 hover:border-gray-400"
+            className="rounded-lg border border-olive/15 p-5 hover:border-olive/40"
           >
             <div className="font-medium">{s.name}</div>
             <div className="mt-1 text-sm text-gray-500">{s.tagline}</div>

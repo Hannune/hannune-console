@@ -86,7 +86,7 @@ export default function KeysManager({
             </code>
             <button
               onClick={copy}
-              className="rounded-md bg-gray-900 px-3 py-2 text-sm text-white hover:bg-gray-700"
+              className="rounded-md bg-olive px-3 py-2 text-sm text-cream hover:bg-olive-hover"
             >
               {copied ? "Copied" : "Copy"}
             </button>
@@ -104,12 +104,12 @@ export default function KeysManager({
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Key name (optional, e.g. production)"
-          className="flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:border-gray-900"
+          className="flex-1 rounded-md border border-olive/25 px-3 py-2 text-sm outline-none focus:border-olive"
         />
         <button
           type="submit"
           disabled={pending}
-          className="rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-gray-700 disabled:opacity-50"
+          className="rounded-md bg-olive px-4 py-2 text-sm font-medium text-cream hover:bg-olive-hover disabled:opacity-50"
         >
           {pending ? "Working…" : "Create key"}
         </button>
@@ -118,7 +118,7 @@ export default function KeysManager({
       {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
 
       {/* key list */}
-      <div className="mt-6 overflow-hidden rounded-lg border border-gray-200">
+      <div className="mt-6 overflow-hidden rounded-lg border border-olive/15">
         {initialKeys.length === 0 ? (
           <p className="p-5 text-sm text-gray-500">
             No keys yet. Create one to start calling the API.
@@ -136,7 +136,7 @@ export default function KeysManager({
             </thead>
             <tbody>
               {initialKeys.map((k) => (
-                <tr key={k.id} className="border-t border-gray-100">
+                <tr key={k.id} className="border-t border-olive/10">
                   <td className="px-4 py-3">
                     <code>{k.keyPrefix}…</code>
                   </td>

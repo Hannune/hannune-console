@@ -17,18 +17,18 @@ export default function Home() {
           <Link
             key={s.slug}
             href={`/${s.slug}`}
-            className="block rounded-xl border border-gray-200 p-6 transition hover:border-gray-400 hover:shadow-sm"
+            className="block rounded-xl border border-olive/15 p-6 transition hover:border-olive/40 hover:shadow-sm"
           >
             <h2 className="text-lg font-medium">{s.name}</h2>
             <p className="mt-1 text-sm text-gray-500">{s.tagline}</p>
-            <span className="mt-4 inline-block text-sm font-medium text-blue-600">
+            <span className="mt-4 inline-block text-sm font-medium text-olive-hover">
               View &rarr;
             </span>
           </Link>
         ))}
       </section>
 
-      <footer className="mt-16 border-t border-gray-100 pt-6 text-sm text-gray-400">
+      <footer className="mt-16 border-t border-olive/10 pt-6 text-sm text-gray-400">
         <Link href="https://hannune.ai" className="hover:text-gray-600">
           Hannune
         </Link>

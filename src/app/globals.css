@@ -1,27 +1,31 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* Hannune brand palette — matched to hannune.ai (cream + olive/sage). */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #ebeddf; /* cream */
+  --foreground: #333a2f; /* dark olive */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* brand tokens (usable as bg-olive / text-cream / bg-sage / hover:bg-olive-hover) */
+  --color-cream: #ebeddf;
+  --color-olive: #333a2f;
+  --color-olive-hover: #5a6250;
+  --color-sage: #7a8270;
+
+  /* match hannune.ai system font stack */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-mono: var(--font-geist-mono);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  line-height: 1.6;
 }

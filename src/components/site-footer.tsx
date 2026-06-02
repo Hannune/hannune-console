@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function SiteFooter() {
   return (
-    <footer className="mt-auto border-t border-gray-100 px-6 py-8 text-sm text-gray-400">
+    <footer className="mt-auto border-t border-olive/10 px-6 py-8 text-sm text-gray-400">
       <div className="mx-auto flex max-w-5xl flex-col gap-2">
         <div className="flex flex-wrap gap-x-5 gap-y-1">
           <Link href="/terms" className="hover:text-gray-700">

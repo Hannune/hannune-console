@@ -21,7 +21,7 @@ export default function LegalShell({
       </p>
       <h1 className="mt-1 text-3xl font-semibold tracking-tight">{title}</h1>
       <p className="mt-2 text-sm text-gray-500">{effective}</p>
-      <article className="prose prose-sm mt-8 max-w-none prose-headings:font-semibold prose-h2:mt-8 prose-h2:text-lg prose-h3:text-base prose-a:text-blue-600">
+      <article className="prose prose-sm mt-8 max-w-none prose-headings:font-semibold prose-h2:mt-8 prose-h2:text-lg prose-h3:text-base prose-a:text-olive-hover">
         {children}
       </article>
     </main>

@@ -18,7 +18,7 @@ export async function generateMetadata({
 
 function Code({ children }: { children: string }) {
   return (
-    <pre className="mt-3 overflow-x-auto rounded-lg bg-gray-900 p-4 text-xs leading-relaxed text-gray-100">
+    <pre className="mt-3 overflow-x-auto rounded-lg bg-olive p-4 text-xs leading-relaxed text-gray-100">
       <code>{children}</code>
     </pre>
   );
@@ -61,7 +61,7 @@ export default async function DocsPage({
         All requests require an API key as a Bearer token. Create a key in your{" "}
         <Link
           href={`/login?next=/dashboard/${svc.slug}`}
-          className="text-blue-600 underline"
+          className="text-olive-hover underline"
         >
           dashboard
         </Link>
@@ -126,7 +126,7 @@ export default async function DocsPage({
           </thead>
           <tbody>
             {svc.tiers.map((t) => (
-              <tr key={t.id} className="border-t border-gray-100">
+              <tr key={t.id} className="border-t border-olive/10">
                 <td className="py-2 pr-4 font-medium">{t.name}</td>
                 <td className="py-2 pr-4">
                   {t.contactSales
@@ -162,7 +162,7 @@ export default async function DocsPage({
       <div className="mt-10">
         <Link
           href={`/login?next=/dashboard/${svc.slug}`}
-          className="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-700"
+          className="rounded-lg bg-olive px-5 py-2.5 text-sm font-medium text-cream hover:bg-olive-hover"
         >
           Get an API key
         </Link>
