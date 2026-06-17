@@ -39,7 +39,7 @@ export default function AuthForm({ mode }: { mode: Mode }) {
       return;
     }
     setNotice(
-      "Check your inbox. Click the magic link to sign in (no password needed).",
+      "이메일을 확인하세요. 받은 메일의 magic link 를 클릭하면 자동 로그인됩니다.",
     );
     setLoading(false);
   }
