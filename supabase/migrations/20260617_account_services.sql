@@ -46,16 +46,25 @@ create trigger account_services_set_updated_at
   for each row execute function public.set_updated_at();
 
 -- ---------- 데이터 마이그레이션 ----------
--- 옛 accounts.tier = ER API 가 먼저 launch 됐으니 entity-resolution 으로 박음.
--- hannune.tech@gmail.com 처럼 ownership 결제 후 cancel 했으면 webhook 이 이미 free 박았을 거.
+-- accounts 테이블엔 polar_customer_id 만 있음. polar_subscription_id 는
+-- subscriptions 테이블 (service 별 row) 에서 active sub 1건 join.
 insert into public.account_services (account_id, service, tier, polar_customer_id, polar_subscription_id)
 select
-  id,
+  a.id,
   'entity-resolution',
-  coalesce(tier, 'free'),
-  polar_customer_id,
-  polar_subscription_id
-from public.accounts
+  coalesce(a.tier, 'free'),
+  a.polar_customer_id,
+  s.polar_subscription_id
+from public.accounts a
+left join lateral (
+  select polar_subscription_id
+  from public.subscriptions
+  where account_id = a.id
+    and service = 'entity-resolution'
+    and status = 'active'
+  order by current_period_end desc nulls last
+  limit 1
+) s on true
 on conflict (account_id, service) do nothing;
 
 -- 모든 account 에 ownership-api free tier 도 박음 (기본 접근권)
