@@ -25,6 +25,10 @@ create index if not exists account_services_polar_customer_id_idx
 -- ---------- RLS ----------
 alter table public.account_services enable row level security;
 
+-- 권한 부여 (SQL 으로 만든 새 테이블은 자동 grant 안 됨)
+grant select, insert, update, delete on public.account_services to service_role;
+grant select on public.account_services to authenticated;
+
 drop policy if exists "account_services select own" on public.account_services;
 create policy "account_services select own"
   on public.account_services
