@@ -69,21 +69,57 @@ export default async function DocsPage({
       </p>
       <Code>{`Authorization: Bearer erk_live_xxxxxxxxxxxxxxxx`}</Code>
 
-      <h2 className="mt-10 text-xl font-semibold">Resolve one entity</h2>
-      <p className="mt-2 text-gray-600">
-        <code>POST /match</code> — resolve a single surface form to a canonical
-        entity. Counts as one match against your monthly quota when a match is
-        found.
-      </p>
-      <Code>{`curl -X POST ${base}/match \\
+      {svc.slug === "ownership-api" ? (
+        <>
+          <h2 className="mt-10 text-xl font-semibold">Ownership tree</h2>
+          <p className="mt-2 text-gray-600">
+            <code>GET /companies/{"{identifier}"}/ownership-tree</code> —
+            ownership chain up to depth 4. <code>identifier</code> = ER API
+            canonical id (e.g. <code>company_545e7582</code>).
+          </p>
+          <Code>{`curl "${base}/companies/company_xxx/ownership-tree?depth=3&direction=owners" \\
+  -H "Authorization: Bearer $API_KEY"`}</Code>
+          <p className="mt-3 text-sm text-gray-600">
+            Parameters: <code>depth</code> (1-4),{" "}
+            <code>direction</code> (owners | owns | both),{" "}
+            <code>id_kind</code> (er | node).
+          </p>
+
+          <h2 className="mt-10 text-xl font-semibold">
+            Ownership history (time series)
+          </h2>
+          <p className="mt-2 text-gray-600">
+            <code>GET /companies/{"{identifier}"}/ownership-history</code> —
+            append-only history of every reported ownership change with
+            evidence quotes from primary disclosures.
+          </p>
+          <Code>{`curl "${base}/companies/company_xxx/ownership-history?role=both&limit=200" \\
+  -H "Authorization: Bearer $API_KEY"`}</Code>
+
+          <h2 className="mt-10 text-xl font-semibold">Graph stats</h2>
+          <p className="mt-2 text-gray-600">
+            <code>GET /stats</code> — total companies, persons, and relations
+            currently in the graph.
+          </p>
+          <Code>{`curl ${base}/stats -H "Authorization: Bearer $API_KEY"`}</Code>
+        </>
+      ) : (
+        <>
+          <h2 className="mt-10 text-xl font-semibold">Resolve one entity</h2>
+          <p className="mt-2 text-gray-600">
+            <code>POST /match</code> — resolve a single surface form to a
+            canonical entity. Counts as one match against your monthly quota
+            when a match is found.
+          </p>
+          <Code>{`curl -X POST ${base}/match \\
   -H "Authorization: Bearer $API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '{
     "entity_name": "Samsung Elec",
     "entity_type": "organization"
   }'`}</Code>
-      <p className="mt-3 text-sm text-gray-500">Response</p>
-      <Code>{`{
+          <p className="mt-3 text-sm text-gray-500">Response</p>
+          <Code>{`{
   "tier": "free",
   "match_found": true,
   "resolved_entity": "Samsung Electronics",
@@ -93,18 +129,19 @@ export default async function DocsPage({
   "normalized_name": "samsung elec",
   "candidate_pool": 13371
 }`}</Code>
-      <p className="mt-3 text-sm text-gray-600">
-        Optional fields: <code>context</code> (a short string to help
-        disambiguation) and <code>registry_id</code> (to match against a custom
-        registry instead of the default).
-      </p>
+          <p className="mt-3 text-sm text-gray-600">
+            Optional fields: <code>context</code> (a short string to help
+            disambiguation) and <code>registry_id</code> (to match against a
+            custom registry instead of the default).
+          </p>
 
-      <h2 className="mt-10 text-xl font-semibold">Check usage</h2>
-      <p className="mt-2 text-gray-600">
-        <code>GET /usage</code> — current month usage and limits for your key.
-      </p>
-      <Code>{`curl ${base}/usage -H "Authorization: Bearer $API_KEY"`}</Code>
-      <Code>{`{
+          <h2 className="mt-10 text-xl font-semibold">Check usage</h2>
+          <p className="mt-2 text-gray-600">
+            <code>GET /usage</code> — current month usage and limits for your
+            key.
+          </p>
+          <Code>{`curl ${base}/usage -H "Authorization: Bearer $API_KEY"`}</Code>
+          <Code>{`{
   "tier": "free",
   "month": "2026-06",
   "matches_used": 12,
@@ -112,6 +149,8 @@ export default async function DocsPage({
   "requests_this_month": 20,
   "rate_per_min": 10
 }`}</Code>
+        </>
+      )}
 
       <h2 className="mt-10 text-xl font-semibold">Plans &amp; limits</h2>
       <div className="mt-3 overflow-x-auto">
@@ -119,7 +158,7 @@ export default async function DocsPage({
           <thead className="text-left text-xs uppercase tracking-wide text-gray-400">
             <tr>
               <th className="py-2 pr-4">Plan</th>
-              <th className="py-2 pr-4">Matches / mo</th>
+              <th className="py-2 pr-4">{svc.slug === "ownership-api" ? "Calls / mo" : "Matches / mo"}</th>
               <th className="py-2 pr-4">Rate limit</th>
               <th className="py-2">Price</th>
             </tr>

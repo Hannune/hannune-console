@@ -101,8 +101,88 @@ const ENTITY_RESOLUTION: ServiceDef = {
   enabled: true,
 };
 
+// ---- Ownership API (Northeast Asia 5%-rule + acquisition disclosures) ----
+const OWNERSHIP_API: ServiceDef = {
+  slug: "ownership-api",
+  name: "Ownership API",
+  tagline:
+    "Northeast Asia 5%-rule + acquisition disclosures, one cross-lingual ownership graph.",
+  description:
+    "Unifies 5%-rule and acquisition disclosures from Korea (OpenDART), " +
+    "Japan (EDINET), China (CNINFO), Hong Kong (HKEX), Taiwan (TWSE), and " +
+    "US (SEC EDGAR ADRs) into a single ownership graph. Cross-lingual entity " +
+    "linking via Hannune's Entity Resolution canonical IDs. Daily polling.",
+  apiBaseUrl: "https://api.hannune.ai/ownership-api/v1",
+  tiers: [
+    {
+      id: "free",
+      name: "Free",
+      priceUsd: 0,
+      monthlyQuota: 100,
+      ratePerMin: 10,
+      features: ["100 calls/mo", "Depth 2 ownership tree", "60-min cache"],
+    },
+    {
+      id: "developer",
+      name: "Developer",
+      priceUsd: 29,
+      monthlyQuota: 5000,
+      ratePerMin: 60,
+      features: [
+        "5,000 calls/mo",
+        "Depth 3 ownership tree",
+        "200 history rows / call",
+        "Evidence quotes",
+      ],
+    },
+    {
+      id: "professional",
+      name: "Professional",
+      priceUsd: 149,
+      monthlyQuota: 50000,
+      ratePerMin: 300,
+      features: [
+        "50,000 calls/mo",
+        "Depth 4 ownership tree",
+        "Unlimited history rows",
+        "Monthly jsonl bulk export",
+        "On-demand new-company ingestion",
+      ],
+    },
+    {
+      id: "business",
+      name: "Business",
+      priceUsd: 699,
+      monthlyQuota: 500000,
+      ratePerMin: 1000,
+      features: [
+        "500,000 calls/mo",
+        "Depth 4 ownership tree",
+        "Daily jsonl bulk export",
+        "Priority new-source onboarding",
+        "Webhook push on ownership-percentage changes",
+      ],
+    },
+    {
+      id: "enterprise",
+      name: "Enterprise",
+      priceUsd: 0,
+      monthlyQuota: 0,
+      ratePerMin: 0,
+      contactSales: true,
+      features: [
+        "Unlimited calls",
+        "Custom rate limits",
+        "SLA, on-premise option, custom polling cadence",
+        "Dedicated support",
+      ],
+    },
+  ],
+  enabled: true,
+};
+
 // New services append here (e.g. TWOASY). Nothing else in the codebase changes.
-export const SERVICES: ServiceDef[] = [ENTITY_RESOLUTION];
+export const SERVICES: ServiceDef[] = [ENTITY_RESOLUTION, OWNERSHIP_API];
 
 export function getService(slug: string): ServiceDef | undefined {
   return SERVICES.find((s) => s.slug === slug && s.enabled);
