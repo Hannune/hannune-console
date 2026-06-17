@@ -47,7 +47,7 @@ export default function AuthForm({ mode }: { mode: Mode }) {
         return;
       }
       setNotice(
-        "이메일을 확인하세요. 받은 메일의 confirm 링크를 클릭하면 자동 로그인됩니다.",
+        "Check your email. Click the confirm link in your inbox to sign in automatically.",
       );
       setLoading(false);
       return;
@@ -69,7 +69,7 @@ export default function AuthForm({ mode }: { mode: Mode }) {
 
   async function onMagicLink() {
     if (!email) {
-      setError("이메일을 먼저 입력하세요.");
+      setError("Enter your email first.");
       return;
     }
     setLoading(true);
@@ -90,7 +90,7 @@ export default function AuthForm({ mode }: { mode: Mode }) {
       return;
     }
     setNotice(
-      "이메일을 확인하세요. 받은 메일의 magic link 를 클릭하면 자동 로그인됩니다.",
+      "Check your email. Click the magic link in your inbox to sign in automatically.",
     );
     setLoading(false);
   }
@@ -162,7 +162,7 @@ export default function AuthForm({ mode }: { mode: Mode }) {
           disabled={loading}
           className="mt-3 w-full rounded-md border border-olive/25 px-3 py-2 text-sm font-medium text-olive hover:bg-olive/5 disabled:opacity-50"
         >
-          비번 없이 magic link 로 로그인
+          Sign in with magic link instead
         </button>
       )}
 
