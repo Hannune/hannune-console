@@ -81,7 +81,7 @@ export default function PlanSelector({
           return (
             <div
               key={t.id}
-              className={`rounded-lg border p-4 ${
+              className={`flex flex-col rounded-lg border p-4 ${
                 isCurrent ? "border-olive" : "border-olive/15"
               }`}
             >
@@ -96,7 +96,7 @@ export default function PlanSelector({
                   </>
                 )}
               </div>
-              <ul className="mt-3 space-y-1 text-xs text-gray-500">
+              <ul className="mt-3 flex-1 space-y-1 text-xs text-gray-500">
                 {t.features.map((f) => (
                   <li key={f}>· {f}</li>
                 ))}
