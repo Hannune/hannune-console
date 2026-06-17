@@ -14,12 +14,15 @@ export default async function DashboardPage() {
   // middleware already guards this, but double-check server-side.
   if (!user) redirect("/login?next=/dashboard");
 
-  // account row (created by the signup trigger). Read under RLS.
-  const { data: account } = await supabase
-    .from("accounts")
-    .select("tier, created_at")
-    .eq("id", user.id)
-    .single();
+  // 사용자가 가진 service 별 tier list (account_services).
+  const { data: rows } = await supabase
+    .from("account_services")
+    .select("service, tier")
+    .eq("account_id", user.id);
+  const tierByService: Record<string, string> = {};
+  for (const r of rows ?? []) {
+    tierByService[r.service] = r.tier;
+  }
 
   const services = enabledServices();
 
@@ -39,23 +42,30 @@ export default async function DashboardPage() {
 
       <p className="mt-2 text-sm text-gray-500">
         Signed in as {user.email}
-        {account ? ` · plan: ${account.tier}` : ""}
       </p>
 
       <h2 className="mt-10 text-sm font-medium uppercase tracking-wide text-gray-400">
         Your services
       </h2>
       <div className="mt-4 grid gap-4">
-        {services.map((s) => (
-          <Link
-            key={s.slug}
-            href={`/dashboard/${s.slug}`}
-            className="rounded-lg border border-olive/15 p-5 hover:border-olive/40"
-          >
-            <div className="font-medium">{s.name}</div>
-            <div className="mt-1 text-sm text-gray-500">{s.tagline}</div>
-          </Link>
-        ))}
+        {services.map((s) => {
+          const tier = tierByService[s.slug] ?? "free";
+          return (
+            <Link
+              key={s.slug}
+              href={`/dashboard/${s.slug}`}
+              className="rounded-lg border border-olive/15 p-5 hover:border-olive/40"
+            >
+              <div className="flex items-center justify-between">
+                <div className="font-medium">{s.name}</div>
+                <span className="rounded-full border border-olive/25 px-2 py-0.5 text-xs uppercase tracking-wide text-gray-600">
+                  {tier}
+                </span>
+              </div>
+              <div className="mt-1 text-sm text-gray-500">{s.tagline}</div>
+            </Link>
+          );
+        })}
       </div>
     </main>
   );

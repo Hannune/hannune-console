@@ -1,15 +1,13 @@
 /**
- * Apply Polar subscription webhook events to Supabase (accounts.tier +
- * subscriptions). Server-only, uses the service_role admin client.
+ * Polar subscription webhook -> Supabase 동기화. Server-only (service_role).
  *
- * Field access is defensive (camelCase from the SDK validator, snake_case from
- * raw API) so it survives either shape.
+ * Multi-service: tier 는 account_services (account_id, service) 에 박힘.
+ * 옛 accounts.tier 단일 컬럼은 안 건드림 (legacy, 옛 ER API 코드와 호환용).
  */
 import "server-only";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { resolveTierByProductId } from "@/lib/polar/products";
 
-// Polar's subscription object is loosely typed across SDK versions; read both cases.
 type AnySub = Record<string, unknown> & {
   id?: string;
   status?: string;
@@ -46,31 +44,35 @@ function pick(sub: AnySub) {
     status: sub.status,
     productId,
     polarCustomerId,
-    externalId, // our Supabase user id
+    externalId,
     periodEnd,
   };
 }
 
-/** Subscription is now active -> grant the tier. */
+/** active -> account_services 의 그 service 의 tier 박음. */
 export async function grantSubscription(sub: AnySub): Promise<void> {
   const { subscriptionId, productId, polarCustomerId, externalId, periodEnd } =
     pick(sub);
   if (!externalId || !productId) return;
   const mapping = resolveTierByProductId(productId);
-  if (!mapping) return; // unknown product, ignore
+  if (!mapping) return;
 
   const admin = createAdminClient();
 
-  // 1. set the account tier + remember the Polar customer id (for the portal)
-  await admin
-    .from("accounts")
-    .update({
+  // account_services 의 그 (account, service) row upsert.
+  await admin.from("account_services").upsert(
+    {
+      account_id: externalId,
+      service: mapping.service,
       tier: mapping.tier,
-      ...(polarCustomerId ? { polar_customer_id: polarCustomerId } : {}),
-    })
-    .eq("id", externalId);
+      polar_customer_id: polarCustomerId ?? null,
+      polar_subscription_id: subscriptionId ?? null,
+      cancel_at_period_end: false,
+    },
+    { onConflict: "account_id,service" },
+  );
 
-  // 2. upsert the subscription row (one active sub per account+service)
+  // subscriptions 테이블 (옛 ER API 와 호환). 한 sub 당 1 row.
   await admin.from("subscriptions").upsert(
     {
       account_id: externalId,
@@ -84,13 +86,40 @@ export async function grantSubscription(sub: AnySub): Promise<void> {
   );
 }
 
-/** Subscription definitively ended -> drop to free. */
+/** revoked -> 그 service 만 free 로 drop. 다른 service tier 는 그대로. */
 export async function revokeSubscription(sub: AnySub): Promise<void> {
-  const { subscriptionId, externalId } = pick(sub);
+  const { subscriptionId, productId, externalId } = pick(sub);
   if (!externalId) return;
   const admin = createAdminClient();
 
-  await admin.from("accounts").update({ tier: "free" }).eq("id", externalId);
+  let service: string | undefined;
+  if (productId) {
+    const mapping = resolveTierByProductId(productId);
+    service = mapping?.service;
+  }
+  if (!service && subscriptionId) {
+    // productId 없으면 subscription_id 로 service 역추적
+    const { data } = await admin
+      .from("account_services")
+      .select("service")
+      .eq("polar_subscription_id", subscriptionId)
+      .limit(1)
+      .maybeSingle();
+    service = data?.service;
+  }
+
+  if (service) {
+    await admin
+      .from("account_services")
+      .update({
+        tier: "free",
+        polar_subscription_id: null,
+        cancel_at_period_end: false,
+      })
+      .eq("account_id", externalId)
+      .eq("service", service);
+  }
+
   if (subscriptionId) {
     await admin
       .from("subscriptions")
@@ -99,11 +128,17 @@ export async function revokeSubscription(sub: AnySub): Promise<void> {
   }
 }
 
-/** Scheduled cancel (still active until period end) -> mark, keep tier. */
+/** 예약 cancel (period end 까지 tier 유지). cancel_at_period_end 만 마킹. */
 export async function markCanceled(sub: AnySub): Promise<void> {
   const { subscriptionId } = pick(sub);
   if (!subscriptionId) return;
   const admin = createAdminClient();
+
+  await admin
+    .from("account_services")
+    .update({ cancel_at_period_end: true })
+    .eq("polar_subscription_id", subscriptionId);
+
   await admin
     .from("subscriptions")
     .update({ status: "canceled" })

@@ -27,13 +27,14 @@ export async function issueKey(
   } = await supabase.auth.getUser();
   if (!user) return { ok: false, error: "not authenticated" };
 
-  // tier snapshot from the user's account (RLS: own row only)
-  const { data: account } = await supabase
-    .from("accounts")
+  // account_services 의 그 service tier snapshot (RLS: own row only)
+  const { data: acctSvc } = await supabase
+    .from("account_services")
     .select("tier")
-    .eq("id", user.id)
-    .single();
-  const tier = account?.tier ?? "free";
+    .eq("account_id", user.id)
+    .eq("service", svc.slug)
+    .maybeSingle();
+  const tier = acctSvc?.tier ?? "free";
 
   const plaintext = generateKey();
   const admin = createAdminClient();

@@ -36,13 +36,15 @@ export default async function ServiceDashboard({
   } = await supabase.auth.getUser();
   if (!user) redirect(`/login?next=/dashboard/${service}`);
 
-  // account tier -> quota for this service
-  const { data: account } = await supabase
-    .from("accounts")
+  // account_services 의 (account, service) row -> 그 service 의 tier.
+  const { data: acctSvc } = await supabase
+    .from("account_services")
     .select("tier, polar_customer_id")
-    .eq("id", user.id)
-    .single();
-  const tierId = account?.tier ?? "free";
+    .eq("account_id", user.id)
+    .eq("service", svc.slug)
+    .maybeSingle();
+  const account = acctSvc ?? { tier: "free", polar_customer_id: null };
+  const tierId = account.tier ?? "free";
   const tier = svc.tiers.find((t) => t.id === tierId) ?? svc.tiers[0];
 
   // keys for this user + service (RLS: own rows only)
