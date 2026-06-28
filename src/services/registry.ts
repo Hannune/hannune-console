@@ -120,7 +120,11 @@ const OWNERSHIP_API: ServiceDef = {
       priceUsd: 0,
       monthlyQuota: 100,
       ratePerMin: 10,
-      features: ["100 calls/mo", "Depth 2 ownership tree", "60-min cache"],
+      features: [
+        "100 calls/mo",
+        "Depth 2 ownership tree",
+        "Tree response with nodes and edges",
+      ],
     },
     {
       id: "developer",
@@ -144,9 +148,8 @@ const OWNERSHIP_API: ServiceDef = {
       features: [
         "50,000 calls/mo",
         "Depth 4 ownership tree",
-        "Unlimited history rows",
-        "Monthly jsonl bulk export",
-        "On-demand new-company ingestion",
+        "2,000 history rows / call",
+        "Evidence quotes",
       ],
     },
     {
@@ -158,9 +161,8 @@ const OWNERSHIP_API: ServiceDef = {
       features: [
         "500,000 calls/mo",
         "Depth 4 ownership tree",
-        "Daily jsonl bulk export",
-        "Priority new-source onboarding",
-        "Webhook push on ownership-percentage changes",
+        "2,000 history rows / call",
+        "Priority email support",
       ],
     },
     {
