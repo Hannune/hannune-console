@@ -103,7 +103,7 @@ const ENTITY_RESOLUTION: ServiceDef = {
 
 // ---- Ownership API (Northeast Asia 5%-rule + acquisition disclosures) ----
 const OWNERSHIP_API: ServiceDef = {
-  slug: "ownership-api",
+  slug: "ownership",
   name: "Ownership API",
   tagline:
     "Northeast Asia 5%-rule + acquisition disclosures, one cross-lingual ownership graph.",
@@ -112,7 +112,7 @@ const OWNERSHIP_API: ServiceDef = {
     "Japan (EDINET), China (CNINFO), Hong Kong (HKEX), Taiwan (TWSE), and " +
     "US (SEC EDGAR ADRs) into a single ownership graph. Cross-lingual entity " +
     "linking via Hannune's Entity Resolution canonical IDs. Daily polling.",
-  apiBaseUrl: "https://api.hannune.ai/ownership-api/v1",
+  apiBaseUrl: "https://api.hannune.ai/ownership/v1",
   tiers: [
     {
       id: "free",

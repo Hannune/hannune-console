@@ -69,7 +69,7 @@ export default async function DocsPage({
       </p>
       <Code>{`Authorization: Bearer erk_live_xxxxxxxxxxxxxxxx`}</Code>
 
-      {svc.slug === "ownership-api" ? (
+      {svc.slug === "ownership" ? (
         <>
           <h2 className="mt-10 text-xl font-semibold">Ownership tree</h2>
           <p className="mt-2 text-gray-600">
@@ -158,7 +158,7 @@ export default async function DocsPage({
           <thead className="text-left text-xs uppercase tracking-wide text-gray-400">
             <tr>
               <th className="py-2 pr-4">Plan</th>
-              <th className="py-2 pr-4">{svc.slug === "ownership-api" ? "Calls / mo" : "Matches / mo"}</th>
+              <th className="py-2 pr-4">{svc.slug === "ownership" ? "Calls / mo" : "Matches / mo"}</th>
               <th className="py-2 pr-4">Rate limit</th>
               <th className="py-2">Price</th>
             </tr>

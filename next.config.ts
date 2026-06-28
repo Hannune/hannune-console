@@ -2,7 +2,20 @@ import type { NextConfig } from "next";
 import { withSentryConfig } from "@sentry/nextjs";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  async redirects() {
+    return [
+      {
+        source: "/ownership-api",
+        destination: "/ownership",
+        permanent: true,
+      },
+      {
+        source: "/ownership-api/:path*",
+        destination: "/ownership/:path*",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default withSentryConfig(nextConfig, {
