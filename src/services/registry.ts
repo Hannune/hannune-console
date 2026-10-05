@@ -180,7 +180,10 @@ const OWNERSHIP_API: ServiceDef = {
       ],
     },
   ],
-  enabled: true,
+  // 2026-10-05 사장님 결정("ownership 접자")으로 콘솔 노출 중단. 코드·tier 정의는 보존, enabled
+  // 플래그만 false로 내려 홈 카드/[service] 페이지/docs/대시보드에서 전부 숨김(registry.ts가
+  // 단일 출처라 이 한 줄로 충분, 다른 파일 수정 불필요. history dev/ownership-api h-261005-048).
+  enabled: false,
 };
 
 // New services append here (e.g. TWOASY). Nothing else in the codebase changes.
