@@ -164,6 +164,27 @@ export default function PrivacyPage() {
             <td>LLM routing for the disambiguation layer</td>
             <td>USA</td>
           </tr>
+          <tr>
+            <td>Google Analytics (GA4)</td>
+            <td>
+              Website analytics: page views, approximate location
+              (country/region/city), device and browser type, referral source.
+              Uses cookies. Event-level data kept 14 months.
+            </td>
+            <td>USA</td>
+          </tr>
+          <tr>
+            <td>Google Workspace</td>
+            <td>Email we send and receive (support, billing notices)</td>
+            <td>USA</td>
+          </tr>
+          <tr>
+            <td>Cloudflare</td>
+            <td>
+              Hosting and delivery for our comparison sites; bot filtering
+            </td>
+            <td>Global edge</td>
+          </tr>
         </tbody>
       </table>
       <p>
@@ -236,10 +257,37 @@ export default function PrivacyPage() {
       </p>
 
       <h2>11. Cookies</h2>
+      <p>Our websites use two kinds of cookies:</p>
+      <ul>
+        <li>
+          <strong>Essential cookies</strong> required for authentication and
+          account functionality.
+        </li>
+        <li>
+          <strong>Analytics cookies</strong> set by Google Analytics (GA4),
+          which we use to understand how our sites are used. These record page
+          views, approximate location derived from your IP address (country,
+          region, city), device and browser type, and the site or search that
+          referred you. Google processes this data in the United States.
+          Event-level data is kept for 14 months, then deleted.
+        </li>
+      </ul>
       <p>
-        Our website uses minimal cookies: essential cookies required for
-        authentication and account functionality. We do not use advertising
-        cookies or third-party tracking.
+        We also run our own page-view counter, which sets no cookies and stores
+        a one-way hash of your IP address rather than the address itself.
+      </p>
+      <p>
+        We do not use advertising cookies, and we do not sell or share your data
+        with advertising networks. You can opt out of Google Analytics across
+        all sites with the{" "}
+        <a
+          href="https://tools.google.com/dlpage/gaoptout"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Google Analytics Opt-out Browser Add-on
+        </a>
+        , or by blocking cookies in your browser.
       </p>
 
       <h2>12. Children&apos;s privacy</h2>
