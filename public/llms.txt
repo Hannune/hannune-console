@@ -1,0 +1,40 @@
+# Hannune Console
+
+> The Hannune Console is where you sign up for Hannune's APIs, manage your API keys, and choose a plan. Hannune is a one-person company in Seoul, South Korea, building cross-lingual entity resolution and Graph RAG tooling. The console itself is not the API; it is the account and billing front end for api.hannune.ai.
+
+## Services
+
+- [Entity Resolution API](https://app.hannune.ai/entity-resolution): Resolves different spellings and languages of the same entity ("Samsung Elec", "삼성전자") to one canonical record. Handles abbreviations, typos and Korean-English cross-lingual matching. API base: https://api.hannune.ai/entity-resolution/v1
+
+## Plans (Entity Resolution API)
+
+- Free: 0 USD/month, 1,000 matches, 10 requests/min, core resolution.
+- Starter: 19 USD/month, 10,000 matches, 60 requests/min, CSV upload.
+- Pro: 99 USD/month, 100,000 matches, 300 requests/min, LLM disambiguation, Graph RAG presets.
+- Business: 499 USD/month, 1,000,000 matches, 1,000 requests/min, all Pro features, priority support.
+- Enterprise: custom pricing, custom rate limits, SSO, SLA, on-premise option.
+
+Matching quality is the same on every plan. Plans differ in request limits, CSV upload, LLM disambiguation and Graph RAG presets.
+
+## Account
+
+- Sign up: https://app.hannune.ai/signup (email + password)
+- Log in: https://app.hannune.ai/login
+- Payments are handled by Polar as Merchant of Record.
+
+## Legal
+
+- [Privacy Policy](https://app.hannune.ai/privacy): what we collect, sub-processors, PIPA / GDPR / CCPA.
+- [Terms of Service](https://app.hannune.ai/terms)
+- [Refund Policy](https://app.hannune.ai/refund)
+
+## Contact
+
+- General and privacy: contact@hannune.ai
+- Data Processing Addendum: email contact@hannune.ai with subject "DPA request".
+
+## Related sites
+
+- [hannune.ai](https://hannune.ai): company site, consulting and Graph RAG work.
+- [api.hannune.ai/docs](https://api.hannune.ai/docs): API reference.
+- [tools.hannune.ai](https://tools.hannune.ai): free document tools.
